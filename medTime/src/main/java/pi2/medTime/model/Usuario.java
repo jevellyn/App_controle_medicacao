@@ -1,16 +1,23 @@
-package pj2.medTime.model;
+package pi2.medTime.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Usuarios")
 public class Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String email;
     private String senha;
 
-    public Usuario(String email, String senha) {
+    public Usuario(Long id, String email, String senha) {
+        this.id = id;
         this.email = email;
         this.senha = senha;
     }
 
     public Usuario(){
-
     }
 
     public String getEmail() {
@@ -25,6 +32,8 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+    public Long getId() {return id;}
+    public void setId(Long id){ this.id = id;}
 
     public Boolean validate(){
         //verificação de login

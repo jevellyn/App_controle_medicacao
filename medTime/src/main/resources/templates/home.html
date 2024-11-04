@@ -11,21 +11,21 @@
 </head>
 <body>
 <div class="container">
-    <button class="add-button" onclick="location.href='/cadastrar-medicamento'">Cadastrar Medicamento</button>
+    <button class="add-button" onclick="location.href='/cadastrarMedicamento'">Cadastrar Medicamento</button>
 
     <table>
         <thead>
         <tr>
             <th>Nome do Medicamento</th>
-            <th>Descrição do Medicamento</th>
-            <th>Dosagem do Medicamento</th>
-            <th>Duração do Medicamento</th>
-            <th>Frequência do Medicamento</th>
+            <th>Descrição</th>
+            <th>Dosagem(Comprimidos)</th>
+            <th>Duração do tratamento(Dias)</th>
+            <th>Frequência do medicamento ao dia</th>
 
         </tr>
         </thead>
         <tbody>
-        <!-- Iteração com Thymeleaf para exibir os medicamentos -->
+
         <tr th:each="medicamento : ${medicamentos}">
             <td th:text="${medicamento.nome}">Nome do Medicamento</td>
             <td th:text="${medicamento.descricao}">Descrição do Medicamento</td>

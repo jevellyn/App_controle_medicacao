@@ -1,4 +1,4 @@
-package pj2.medTime;
+package pi2.medTime;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

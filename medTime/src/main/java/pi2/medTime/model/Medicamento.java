@@ -1,13 +1,21 @@
-package pj2.medTime.model;
+package pi2.medTime.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "medicamentos")
 public class Medicamento {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private String descricao;
     private int dosagem;//comprimidos
     private int duracao;//dias
     private int frequencia;//numero de vezes ao dia
 
-    public Medicamento(String nome, String descricao, int dosagem, int duracao, int frequencia) {
+    public Medicamento(Long id, String nome, String descricao, int dosagem, int duracao, int frequencia) {
+        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.dosagem = dosagem;

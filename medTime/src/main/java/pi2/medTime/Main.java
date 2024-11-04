@@ -1,13 +1,13 @@
-package pj2.medTime;
+package pi2.medTime;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MedTimeApplication {
+public class Main {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MedTimeApplication.class, args);
+		SpringApplication.run(Main.class, args);
 	}
 
 }

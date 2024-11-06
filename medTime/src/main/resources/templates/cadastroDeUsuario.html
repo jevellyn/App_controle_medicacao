@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cadastro de novos Usuários</title>
+</head>
+<body>
+<!-- Botão de voltar -->
+    <button onclick="voltarLogin()">Voltar</button>
+    <h1>MedTime</h1>
+    <h2>Cadastro de novos Usuários</h2>
+    <form action="/cadastrarUsuario" method="post">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+    <!-- Pop-up de confirmação -->
+    <div th:if="${cadastroUsuarioSucesso}" id="popup-confirmacao" class="popup-mensagem-sucesso">
+        <p>Usuário cadastrado com sucesso!</p>
+        <button onclick="voltarLogin()">Ok</button>
+    </div>
+
+    <script>
+        function voltarLogin() {
+            // Redireciona para a tela de home
+            window.location.href = "/login";
+        }
+    </script>
+</body>
+</html>

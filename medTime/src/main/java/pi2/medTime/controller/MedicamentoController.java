@@ -32,7 +32,7 @@ public class MedicamentoController {
     public String  CadastrarMedicamento(Model model, Medicamento medicamento){
         medicamentoRepository.save(medicamento);
 
-        model.addAttribute("cadastroSucesso", true);
+        model.addAttribute("cadastroMedicamentoSucesso", true);
         return "cadastroDeMedicamento";
     }
 

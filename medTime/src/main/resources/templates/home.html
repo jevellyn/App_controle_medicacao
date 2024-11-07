@@ -39,5 +39,20 @@
         </tbody>
     </table>
 </div>
+    <script>
+            // Verifica permissão para exibir notificações
+        if (Notification.permission !== "granted") {
+            Notification.requestPermission();
+        }
+
+        function mostrarNotificacao(medicamento) {
+            if (Notification.permission === "granted") {
+                new Notification("Hora de tomar seu remédio!", {
+                    body: "Lembrete: Tome " + medicamento.dosagem + " comprimido(s) de " + medicamento.nome,
+                    icon: "/path/to/icon.png" // Opcional, caminho do ícone
+                });
+            }
+        }
+    </script>
 </body>
 </html>

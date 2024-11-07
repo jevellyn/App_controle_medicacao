@@ -18,9 +18,10 @@
         <tr>
             <th>Nome do Medicamento</th>
             <th>Descrição</th>
-            <th>Dosagem(Comprimidos)</th>
+            <th>Quantidade em Comprimidos</th>
             <th>Duração do tratamento(Dias)</th>
             <th>Frequência do medicamento ao dia</th>
+            <th>Horário</th>
 
         </tr>
         </thead>
@@ -32,6 +33,7 @@
             <td th:text="${medicamento.dosagem}">Dosagem do Medicamento</td>
             <td th:text="${medicamento.duracao}">Duração do Medicamento</td>
             <td th:text="${medicamento.frequencia}">Frequência do Medicamento</td>
+            <td th:text="${medicamento.horario}">Horário</td>
 
         </tr>
         </tbody>

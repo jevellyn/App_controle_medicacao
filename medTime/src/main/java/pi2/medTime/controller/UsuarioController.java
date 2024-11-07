@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import pi2.medTime.model.TipoAlergia;
 import pi2.medTime.model.Usuario;
 import pi2.medTime.repository.UsuarioRepository;
 
@@ -15,7 +16,8 @@ public class UsuarioController {
     UsuarioRepository usuarioRepository;
 
     @GetMapping("cadastroDeUsuario")
-    public String cadastroDeUsuario(){
+    public String cadastroDeUsuario(Model model){
+        model.addAttribute("tiposAlergia", TipoAlergia.values());
         return "cadastroDeUsuario";
     }
 

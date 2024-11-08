@@ -7,29 +7,38 @@ import pi2.medTime.model.Medicamento;
 import pi2.medTime.repository.MedicamentoRepository;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class NotificacaoService {
 
     @Autowired
-    private MedicamentoRepository medicamentoRepository; // Supondo que você tenha um repositório
+    private MedicamentoRepository medicamentoRepository;
+
+    // Lista para armazenar notificações pendentes
+    private final List<String> notificacoesPendentes = new ArrayList<>();
 
     // Executa a cada minuto
     @Scheduled(cron = "0 * * * * *")
     public void enviarNotificacoes() {
-        LocalTime agora = LocalTime.now();
+        int horarioAtual = LocalTime.now().getHour() * 100 + LocalTime.now().getMinute();
         List<Medicamento> medicamentos = medicamentoRepository.findAll();
 
         for (Medicamento medicamento : medicamentos) {
-            if (medicamento.getHorario().equals(agora)) {
-                mostrarNotificacao(medicamento);
+            int horarioMedicamento = medicamento.getHorario().getHour() * 100 + medicamento.getHorario().getMinute();
+
+            if (horarioMedicamento == horarioAtual) {
+                String notificacao = "Lembrete: Tome " + medicamento.getDosagem() + " comprimido(s) de " + medicamento.getNome();
+                notificacoesPendentes.add(notificacao); // Armazena a notificação para o frontend
             }
         }
     }
 
-    private void mostrarNotificacao(Medicamento medicamento) {
-        // Código para notificar o usuário (ajuste conforme o tipo de notificação que deseja implementar)
-        System.out.println("Lembrete: Tome " + medicamento.getDosagem() + " comprimido(s) de " + medicamento.getNome());
+    // Método para obter notificações pendentes e limpar a lista
+    public List<String> getNotificacoesPendentes() {
+        List<String> notificacoes = new ArrayList<>(notificacoesPendentes);
+        notificacoesPendentes.clear(); // Limpa a lista após o envio
+        return notificacoes;
     }
 }

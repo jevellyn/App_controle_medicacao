@@ -59,28 +59,33 @@
     <table>
         <thead>
         <tr>
+            <th>ID</th>
             <th>Nome</th>
             <th>Descrição do medicamento</th>
             <th>Quantidade em Comprimidos</th>
-            <th>Duração do tratamento(Dias)</th>
+            <th>Duração do tratamento (Dias)</th>
             <th>Frequência do medicamento ao dia</th>
             <th>Horário</th>
-
         </tr>
         </thead>
         <tbody>
-
         <tr th:each="medicamento : ${medicamentos}">
+            <td th:text="${medicamento.id}">ID do Medicamento</td>
             <td th:text="${medicamento.nome}">Nome do Medicamento</td>
             <td th:text="${medicamento.descricao}">Descrição do Medicamento</td>
             <td th:text="${medicamento.dosagem}">Dosagem do Medicamento</td>
             <td th:text="${medicamento.duracao}">Duração do Medicamento</td>
             <td th:text="${medicamento.frequencia}">Frequência do Medicamento</td>
             <td th:text="${medicamento.horario}">Horário</td>
-
+            <td>
+                <a th:href="@{/editaMedicamento/{id}(id=${medicamento.id})}">
+                    <button>Editar</button>
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>
+
 </div>
 <script>
     // Função para buscar notificações do backend

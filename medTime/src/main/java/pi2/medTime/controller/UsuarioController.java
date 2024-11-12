@@ -27,7 +27,6 @@ public class UsuarioController {
         model.addAttribute("cadastroUsuarioSucesso", true);
         return "cadastroDeUsuario";
 
-
     }
 
 }

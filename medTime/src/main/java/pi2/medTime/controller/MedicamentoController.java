@@ -32,6 +32,8 @@ public class MedicamentoController {
 
     @PostMapping("/cadastrarMedicamento")
     public String CadastrarMedicamento(Model model, Medicamento medicamento) {
+        //regra para sempre iniciar o campo qnt_frequencia_restante igual o numero total de frequencia
+        medicamento.setQnt_frequencia_restantes(medicamento.getFrequencia());
         medicamentoRepository.save(medicamento);
 
         model.addAttribute("cadastroMedicamentoSucesso", true);
@@ -41,6 +43,7 @@ public class MedicamentoController {
     @GetMapping("/editaMedicamento/{id}")
     public String getMedicamentoById(@PathVariable Long id, Model model) {
         Medicamento medicamento = buscarPorId(id);
+        medicamento.setQnt_frequencia_restantes(medicamento.getFrequencia());
         model.addAttribute("medicamento", medicamento);
         return "editarMedicamento";
     }

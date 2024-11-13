@@ -11,7 +11,7 @@
 <button onclick="voltarHome()">Voltar</button>
 <h2>Editar de Medicamento</h2>
 
-<form th:action="@{/editarMedicamento}" th:object="${medicamento}" method="post">
+<form th:action="@{/editaMedicamento/{id}(id=${medicamento.id})}" th:object="${medicamento}" method="post">
     <label for="id">ID:</label>
     <input id="id" name="id" th:value="${medicamento.id}" readonly required><br><br>
 

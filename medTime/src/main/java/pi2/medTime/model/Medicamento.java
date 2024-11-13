@@ -24,5 +24,6 @@ public class Medicamento {
     private int duracao;//dias
     private int frequencia;//numero de vezes ao dia
     private LocalTime horario;//horario para tomar o medicamento
+    private int qnt_frequencia_restantes;
 
 }

@@ -19,8 +19,8 @@ public class NotificacaoService {
     // Lista para armazenar notificações pendentes
     private final List<String> notificacoesPendentes = new ArrayList<>();
 
-    // Executa a cada minuto
-    @Scheduled(cron = "0 * * * * *")
+    // Executa a cada 30 segundos
+    @Scheduled(cron = "*/30 * * * * *")
     public void enviarNotificacoes() {
         int horarioAtual = LocalTime.now().getHour() * 100 + LocalTime.now().getMinute();
         List<Medicamento> medicamentos = medicamentoRepository.findAll();
@@ -31,6 +31,12 @@ public class NotificacaoService {
             if (horarioMedicamento == horarioAtual) {
                 String notificacao = "Lembrete: Tome " + medicamento.getDosagem() + " comprimido(s) de " + medicamento.getNome();
                 notificacoesPendentes.add(notificacao); // Armazena a notificação para o frontend
+
+                if(medicamento.getQnt_frequencia_restantes() > 0){
+                    medicamentoRepository.decrementQntFrequenciaRestantes(medicamento.getId());
+                }else{
+                    medicamentoRepository.decrementDuracao(medicamento.getId());
+                }
             }
         }
     }

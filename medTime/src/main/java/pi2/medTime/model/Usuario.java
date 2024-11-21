@@ -8,7 +8,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -39,4 +39,7 @@ public class Usuario {
 
     @Enumerated(EnumType.STRING)
     private TipoAlergia alergia;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true) // Relacionamento com Medicamento
+    private List<Medicamento> medicamentos;
 }

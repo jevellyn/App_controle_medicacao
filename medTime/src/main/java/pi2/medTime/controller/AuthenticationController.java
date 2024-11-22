@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pi2.medTime.model.AuthenticationDTO;
+import pi2.medTime.model.LoginResponseDTO;
 import pi2.medTime.model.Usuario;
 import pi2.medTime.model.registerDTO;
 import pi2.medTime.repository.UsuarioRepository;
+import pi2.medTime.service.TokenService;
 
 
 @Controller
@@ -25,12 +27,18 @@ public class AuthenticationController {
 
     @Autowired
    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationDTO data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.senha());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((Usuario ) auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/cadastrar")

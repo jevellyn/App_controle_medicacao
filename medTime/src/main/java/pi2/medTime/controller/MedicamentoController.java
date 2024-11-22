@@ -1,54 +1,49 @@
 package pi2.medTime.controller;
 import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pi2.medTime.model.Medicamento;
 import pi2.medTime.repository.MedicamentoRepository;
 
 @Controller
+@RequestMapping("medicamento")
 public class MedicamentoController {
 
     @Autowired
     MedicamentoRepository medicamentoRepository;
 
-    @GetMapping("/home")
-    public ModelAndView home() {
-        ModelAndView mv = new ModelAndView("home");
-        ArrayList<Medicamento> medicamentos = (ArrayList<Medicamento>) medicamentoRepository.findAll();
-        mv.addObject("medicamentos", medicamentos);
-        return mv;
+    //Rota para retornar todos os medicamentos
+    @GetMapping("/listar")
+    public ResponseEntity listarMedicamentos(){
+        List<Medicamento> listaMedicamentos = this.medicamentoRepository.findAll();
+
+        return ResponseEntity.ok(listaMedicamentos);
+
     }
 
-    @GetMapping("/cadastroDeMedicamento")
-    public String cadastrarMedicamento() {
-        return "cadastroDeMedicamento";
+    //Rota de cadastro de medicamentos
+    @PostMapping("/cadastrar")
+    public ResponseEntity cadastrarMedicamento(@RequestBody Medicamento body) {
+        Medicamento novoMedicamento = new Medicamento(body.getId(),
+                                                      body.getNome(),
+                                                      body.getDescricao(),
+                                                      body.getDosagem(),
+                                                      body.getDuracao(),
+                                                      body.getFrequencia(),
+                                                      body.getHorario());
+
+
+        this.medicamentoRepository.save(novoMedicamento);
+        return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/cadastrarMedicamento")
-    public String CadastrarMedicamento(Model model, Medicamento medicamento) {
-        //regra para sempre iniciar o campo qnt_frequencia_restante igual o numero total de frequencia
-        medicamento.setQnt_frequencia_restantes(medicamento.getFrequencia());
-        medicamentoRepository.save(medicamento);
-
-        model.addAttribute("cadastroMedicamentoSucesso", true);
-        return "cadastroDeMedicamento";
-    }
-
-    @GetMapping("/editaMedicamento/{id}")
-    public String getMedicamentoById(@PathVariable Long id, Model model) {
-        Medicamento medicamento = buscarPorId(id);
-        medicamento.setQnt_frequencia_restantes(medicamento.getFrequencia());
-        model.addAttribute("medicamento", medicamento);
-        return "editarMedicamento";
-    }
-
-    @PostMapping("/editarMedicamento")
+    @PostMapping("/editar")
     public String editarMedicamento(@ModelAttribute("medicamento") Medicamento medicamento) {
         atualizar(medicamento);
         return "redirect:/home";

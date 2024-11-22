@@ -1,4 +1,4 @@
-package pi2.medTime.model;
+package pi2.medTime.Enum;
 
 public enum TipoAlergia {
     PENICILINA,

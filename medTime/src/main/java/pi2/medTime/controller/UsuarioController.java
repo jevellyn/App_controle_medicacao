@@ -5,11 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import pi2.medTime.model.TipoAlergia;
+import pi2.medTime.Enum.TipoAlergia;
 import pi2.medTime.model.Usuario;
 import pi2.medTime.repository.UsuarioRepository;
 
 @Controller
+
 public class UsuarioController {
 
     @Autowired

@@ -1,5 +1,6 @@
 package pi2.medTime.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -86,8 +87,8 @@ public class Usuario implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
-/**
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true) // Relacionamento com Medicamento
+    @JsonManagedReference
     private List<Medicamento> medicamentos;
-    */
 }

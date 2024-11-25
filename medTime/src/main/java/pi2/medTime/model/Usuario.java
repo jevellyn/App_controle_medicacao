@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.cglib.core.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,6 +32,7 @@ public class Usuario implements UserDetails{
     @Column(nullable = false)
     private String nome;
 
+    @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
 
@@ -48,11 +50,12 @@ public class Usuario implements UserDetails{
 
     private UsuarioRole role;
 
-    public Usuario(String email, String senha, UsuarioRole role, String nome){
+    public Usuario(String email, String senha, UsuarioRole role, String nome, LocalDate dataNascimento){
         this.email=email;
         this.senha=senha;
         this.role=role;
         this.nome=nome;
+        this.dataNascimento=dataNascimento;
     }
 
 

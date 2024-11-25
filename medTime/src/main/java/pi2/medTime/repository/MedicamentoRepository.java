@@ -1,14 +1,14 @@
 package pi2.medTime.repository;
 
-import jakarta.transaction.Transactional;
-import org.hibernate.mapping.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import pi2.medTime.model.Medicamento;
 
-import java.util.ArrayList;
-
+/**
+ * Interface `MedicamentoRepository` estende `JpaRepository`, que é uma interface do Spring Data JPA.
+ * Esta interface fornece operações CRUD (Criar, Ler, Atualizar, Excluir) prontas para usar em relação à entidade `Medicamento`.
+ *
+ * O `MedicamentoRepository` gerencia a persistência e recuperação de objetos `Medicamento` no banco de dados.
+ */
 public interface MedicamentoRepository extends JpaRepository<Medicamento, Long> {
-
+    // JpaRepository fornece métodos prontos como: save(), findById(), findAll(), deleteById(), etc.
 }

@@ -1,11 +1,17 @@
 package pi2.medTime.controller;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import pi2.medTime.model.Medicamento;
 import pi2.medTime.model.Usuario;
 import pi2.medTime.repository.MedicamentoRepository;
@@ -25,39 +31,34 @@ public class MedicamentoController {
     @Autowired
     TokenService tokenService;
 
-    //Rota para retornar todos os medicamentos
     @GetMapping("/listar")
     public ResponseEntity listarMedicamentos(@RequestHeader("Authorization") String authorizationHeader) {
-        // Extrair o token do cabeçalho
         String token = authorizationHeader.replace("Bearer ", "").trim();
 
-        // Validar o token e obter o login do usuário
         String login = tokenService.validateToken(token);
 
-        // Buscar o usuário no banco
         Usuario usuario = (Usuario) usuarioRepository.findByEmail(login);
         if (usuario == null) {
             return ResponseEntity.status(404).body("Usuário não encontrado");
         }
 
-        // Buscar os medicamentos associados ao usuário
-        ArrayList<Medicamento> todosMedicamenos = (ArrayList<Medicamento>) medicamentoRepository.findAll();
-        ArrayList<Medicamento> medicamentosPorUsuario = new ArrayList<>();
+        ArrayList<Medicamento> Medicamentos = (ArrayList<Medicamento>) medicamentoRepository
+                .findByUsuarioId(usuario.getId());
+        // ArrayList<Medicamento> medicamentosPorUsuario = new ArrayList<>();
 
-        for(Medicamento m : todosMedicamenos){
-            if(m.getId()==usuario.getId()){
-                medicamentosPorUsuario.add(m);
-            }
-        }
+        // for (Medicamento m : todosMedicamenos) {
+        //     if (m.getId() == usuario.getId()) {
+        //         medicamentosPorUsuario.add(m);
+        //     }
+        // }
 
-        return ResponseEntity.ok(medicamentosPorUsuario);
+        return ResponseEntity.ok(Medicamentos);
     }
 
-
-    //Rota de cadastro de medicamentos
+    // Rota de cadastro de medicamentos
     @PostMapping("/cadastrar")
     public ResponseEntity cadastrarMedicamento(@RequestBody Medicamento body,
-                                               @RequestHeader("Authorization") String authorizationHeader) {
+            @RequestHeader("Authorization") String authorizationHeader) {
         // Extrair o token do cabeçalho
         String token = authorizationHeader.replace("Bearer ", "").trim();
 
@@ -81,7 +82,7 @@ public class MedicamentoController {
     // Rota de edição de medicamentos
     @PutMapping("/editar")
     public ResponseEntity editarMedicamento(@RequestBody Medicamento body,
-                                            @RequestHeader("Authorization") String authorizationHeader) {
+            @RequestHeader("Authorization") String authorizationHeader) {
         // Extrair o token do cabeçalho
         String token = authorizationHeader.replace("Bearer ", "").trim();
 

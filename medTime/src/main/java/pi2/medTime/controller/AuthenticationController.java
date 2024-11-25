@@ -32,7 +32,7 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
-    @CrossOrigin(origins = "http://localhost:8081", allowedHeaders = "*")
+    // @CrossOrigin(origins = "http://localhost:8081", allowedHeaders = "*")
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationDTO data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.senha());
